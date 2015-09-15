@@ -1,43 +1,39 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+##################################
+#First Robotics java .gitignore
+#Team 1073
+##################################
 
-# Folder config file
+#For Robot Builder Temporary Files
+*~
+~*
+
+#Other Various Files & Operating System 
+bin/
+
+build/
+/build/
+\build\
+build\
+
+dist/
+/dist/
+dist\
+\dist\
+
+*.class
+.classpath
+*.classpath
+classpath
+
+#OS related
+.DS_STORE
+.Thumbs.db
 Desktop.ini
-
-# Recycle Bin used on file shares
 $RECYCLE.BIN/
+.localized
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
 
-# Windows shortcuts
-*.lnk
 
-# =========================
-# Operating System Files
-# =========================
+*.xml
 
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+sysProps.xml
