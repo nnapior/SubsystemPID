@@ -35,27 +35,33 @@ public class PIDThread implements Runnable{
 		this.marker = marker;
 	}
 	public void run(){
-		setpoint = PIDSetpoint.getPIDSetpoint(marker);
-		currentMeasurement = PIDinput.getPIDSource(marker);
+		while (true) { //this needs to be changed to know when to quit out. 
+			setpoint = PIDSetpoint.getPIDSetpoint(marker);
+			currentMeasurement = PIDinput.getPIDSource(marker);
 
-		// PID base code below:
-		double error = (setpoint) - (currentMeasurement);
-		error = toleranceAdjustment(error);
-		integral = integral + (error * dt);
-		double derivative = (error - previousError) / dt;
-		output = (kP * error) + (kI * integral) + (kD * derivative);
-		previousError = error;
+			// PID base code below:
+			double error = (setpoint) - (currentMeasurement);
+			error = toleranceAdjustment(error);
+			integral = integral + (error * dt);
+			double derivative = (error - previousError) / dt;
+			output = (kP * error) + (kI * integral) + (kD * derivative);
+			output = output * -1;
+			previousError = error;
 
-		PIDOutput.setPIDOutput(output, marker);
+			PIDOutput.setPIDOutput(output, marker);
 
-		System.out.println("PID Thread marker: " + marker + " is running");
-
-		try {
-			Thread.sleep(dt);
-		} catch (InterruptedException e) {
-			System.out.println("PIDThread interupted. Switch to manual control");
+			//System.out.println("PID Thread marker: " + marker + " is running");
+			if(marker == 0){
+				System.out.println("Current Encoder Measurement: " + currentMeasurement);
+				/*System.out.println("Current Setpoint: " + setpoint);*/
+			}
+			try {
+				Thread.sleep(dt);
+			} catch (InterruptedException e) {
+				System.out.println("PIDThread interupted. Switch to manual control");
+			}
 		}
-		 
+
 	}
 
 	private double toleranceAdjustment(double currentError){

@@ -105,11 +105,12 @@ public class  Drive extends Command implements PIDCommand{
 
 	@Override
 	public double getPIDSetpoint(int marker) {
-		System.out.println("in getPID setpoint");
 		switch (marker){
 		case 0:
-			return setpointFL;
+			return 0.08;
+			//return setpointFL;
 		case 1:
+
 			return setpointFR;
 		case 2:
 			return setpointBL;

@@ -62,11 +62,26 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
 	}
 	@Override
 	public void setPIDOutput(double output, int marker) {
+		System.out.println("Output to front left: " + output);
+		if(marker == 0){
+			frontLeftJag.set(output);
+		}
+		else if(marker == 1){
+			frontRightJag.set(output);
+		}
+		else if(marker == 2){
+			backLeftJag.set(output);
+		}
+		else if(marker == 3){
+			backRightJag.set(output);
+		}
+		/*
 		switch (marker) {
 		case 0:
 			frontLeftJag.set(output);
 		case 1:
 			frontRightJag.set(output);
+			System.out.println("in case 2");
 		case 2:
 			backLeftJag.set(output);
 		case 3:
@@ -74,6 +89,7 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
 		default:
 			break;
 		}
+		*/
 	}
 	public Drive getDriveCommand(){
 		return drive;
