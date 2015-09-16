@@ -71,7 +71,7 @@ Children:
       Name: backRightJag
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Drive}
+        name: Default Command, type: Command, validators: null, value: None}
     Base: Subsystem
     Name: DriveTrain
   - Children:

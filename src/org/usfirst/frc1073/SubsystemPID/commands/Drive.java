@@ -18,7 +18,7 @@ import org.usfirst.frc1073.SubsystemPID.Robot;
 /**
  *
  */
-public class  Drive extends Command {
+public class  Drive extends Command implements PIDCommand{
 	private double deadZone;
 	private double setpointFL;
 	private double setpointFR;
@@ -71,7 +71,6 @@ public class  Drive extends Command {
 		setpointBL = -1 * setpoints[2];
 		setpointBR = setpoints[3];
 		
-		
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -102,5 +101,22 @@ public class  Drive extends Command {
 			}
 		}
 		return setpoints;
+	}
+
+	@Override
+	public double getPIDSetpoint(int marker) {
+		System.out.println("in getPID setpoint");
+		switch (marker){
+		case 0:
+			return setpointFL;
+		case 1:
+			return setpointFR;
+		case 2:
+			return setpointBL;
+		case 3:
+			return setpointBR;
+		default:
+			return 0;
+		}
 	}
 }

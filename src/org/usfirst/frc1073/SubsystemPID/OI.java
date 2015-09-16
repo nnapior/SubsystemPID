@@ -12,6 +12,8 @@
 package org.usfirst.frc1073.SubsystemPID;
 
 import org.usfirst.frc1073.SubsystemPID.commands.*;
+import org.usfirst.frc1073.SubsystemPID.subsystems.PIDSubsystem;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
 
