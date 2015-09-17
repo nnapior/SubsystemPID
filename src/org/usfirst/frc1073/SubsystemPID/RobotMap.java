@@ -50,7 +50,7 @@ public class RobotMap {
         driveTrainbackRightJag = new Jaguar(2);
         LiveWindow.addActuator("DriveTrain", "backRightJag", (Jaguar) driveTrainbackRightJag);
         
-        encoderSystemfrontLeftEncoder = new Encoder(5, 4, true, EncodingType.k4X);
+        encoderSystemfrontLeftEncoder = new Encoder(5, 4, false, EncodingType.k4X);
         LiveWindow.addSensor("EncoderSystem", "frontLeftEncoder", encoderSystemfrontLeftEncoder);
         encoderSystemfrontLeftEncoder.setDistancePerPulse(1.0);
         encoderSystemfrontLeftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
@@ -58,7 +58,7 @@ public class RobotMap {
         LiveWindow.addSensor("EncoderSystem", "frontRightEncoder", encoderSystemfrontRightEncoder);
         encoderSystemfrontRightEncoder.setDistancePerPulse(1.0);
         encoderSystemfrontRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-        encoderSystembackLeftEncoder = new Encoder(7, 6, true, EncodingType.k4X);
+        encoderSystembackLeftEncoder = new Encoder(7, 6, false, EncodingType.k4X);
         LiveWindow.addSensor("EncoderSystem", "backLeftEncoder", encoderSystembackLeftEncoder);
         encoderSystembackLeftEncoder.setDistancePerPulse(1.0);
         encoderSystembackLeftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);

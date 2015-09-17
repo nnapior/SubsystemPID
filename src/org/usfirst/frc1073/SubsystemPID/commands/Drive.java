@@ -24,6 +24,7 @@ public class  Drive extends Command implements PIDCommand{
 	private double setpointFR;
 	private double setpointBL;
 	private double setpointBR;
+	final double scaler = 1 / .707;
 	
     public Drive() {
         // Use requires() here to declare subsystem dependencies
@@ -50,6 +51,7 @@ public class  Drive extends Command implements PIDCommand{
 		if (Math.abs(mag) < deadZone) {
 			mag = 0;
 		}
+		twist = twist / 2;
 		if (Math.abs(twist) < deadZone) {
 			twist = 0;
 		}
@@ -59,10 +61,10 @@ public class  Drive extends Command implements PIDCommand{
 		double sinAngle = Math.sin(joyAngle);
 		double cosAngle = Math.cos(joyAngle);
 		//mecanum wheel deflection (creates PID setpoints)
-		setpointFL = (sinAngle * mag + twist);
-		setpointFR = (cosAngle * mag - twist);
-		setpointBL = (cosAngle * mag + twist);
-		setpointBR = (sinAngle * mag - twist);
+		setpointFL = (sinAngle * mag + twist) * scaler;
+		setpointFR = (cosAngle * mag - twist) * scaler;
+		setpointBL = (cosAngle * mag + twist) * scaler;
+		setpointBR = (sinAngle * mag - twist) * scaler;
 		//normalize output (prevents > 1.0 setpoints)
 		double[] setpoints = normalize(setpointFL, setpointFR,
 				setpointBL, setpointBR);
@@ -71,7 +73,18 @@ public class  Drive extends Command implements PIDCommand{
 		setpointFR = setpoints[1];
 		setpointBL = -1 * setpoints[2];
 		setpointBR = setpoints[3];
-		
+		/*
+		System.out.println("Front Left Setpoint: " + setpointFL);
+		System.out.println("Front Right Setpoint: " + setpointFR);
+		System.out.println("Back Left Setpoint: " + setpointBL);
+		System.out.println("Back Right Setpoint: " + setpointBR);
+		*/
+		/*
+		System.out.println("Front left speed: " + Robot.encoderSystem.getFrontLeftSpeed());
+		System.out.println("Front Right speed: " + Robot.encoderSystem.getFrontRightSpeed());
+		System.out.println("Back left speed: " + Robot.encoderSystem.getBackLeftSpeed());
+		System.out.println("Back Right speed: " + Robot.encoderSystem.getBackRightSpeed());
+		*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

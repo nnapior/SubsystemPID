@@ -20,7 +20,7 @@ public class PIDThread implements Runnable{
 	private PIDSubsystem PIDOutput;
 	private PIDCommand PIDSetpoint;
 
-	private boolean disable;
+	private boolean enabled;
 	private int marker; //<--- this is SUPER IMPORTANT. Each PID Thread needs its own unique marker, or it will NOT WORK
 	public PIDThread(double kP, double kI, double kD, long dt, double tolerance, int marker){
 		this.kP = kP;
@@ -34,25 +34,30 @@ public class PIDThread implements Runnable{
 		this.PIDOutput =  null;
 		this.PIDSetpoint = null;
 		this.marker = marker;
-		disable = false;
+		enabled = true;
 	}
 	public void run(){
 		
-		while (!disable) { //this needs to be changed to know when to quit out. 
-			setpoint = PIDSetpoint.getPIDSetpoint(marker);
-			currentMeasurement = PIDinput.getPIDSource(marker);
+		while (true) { 
+			if(enabled){
+				setpoint = PIDSetpoint.getPIDSetpoint(marker);
+				currentMeasurement = PIDinput.getPIDSource(marker);
 
-			// PID base code below:
-			double error = (setpoint) - (currentMeasurement);
-			error = toleranceAdjustment(error);
-			integral = integral + (error * dt);
-			double derivative = (error - previousError) / dt;
-			output = (kP * error) + (kI * integral) + (kD * derivative);
-			
-			previousError = error;
+				// PID base code below:
+				double error = (setpoint) - (currentMeasurement);
+				error = toleranceAdjustment(error);
+				integral = integral + (error * dt);
+				double derivative = (error - previousError) / dt;
+				output = (kP * error) + (kI * integral) + (kD * derivative);
+				
+				previousError = error;
 
-			PIDOutput.setPIDOutput(output, marker);
-			
+				PIDOutput.setPIDOutput(output, marker);
+			}
+			else{
+				PIDOutput.setPIDOutput(0.0, marker);
+				integral = 0;
+			}
 			
 			try {
 				Thread.sleep(dt);
@@ -73,6 +78,13 @@ public class PIDThread implements Runnable{
 		this.PIDinput = PIDinput;
 		this.PIDOutput =  PIDOutput;
 		this.PIDSetpoint = PIDSetpoint;
+	}
+	
+	public void disable(){
+		enabled = false;
+	}
+	public void enable(){
+		enabled = true;
 	}
 	
 	//unused
