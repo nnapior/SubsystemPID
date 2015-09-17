@@ -53,6 +53,7 @@ public class  Drive extends Command implements PIDCommand{
 		if (Math.abs(twist) < deadZone) {
 			twist = 0;
 		}
+		//TODO Needs Negative deflection!
 		//mecanum joystick deflection
 		joyAngle = ((joyAngle + 45) * 3.14159) / 180;
 		double sinAngle = Math.sin(joyAngle);
@@ -107,10 +108,8 @@ public class  Drive extends Command implements PIDCommand{
 	public double getPIDSetpoint(int marker) {
 		switch (marker){
 		case 0:
-			return 0.08;
-			//return setpointFL;
+			return setpointFL;
 		case 1:
-
 			return setpointFR;
 		case 2:
 			return setpointBL;
