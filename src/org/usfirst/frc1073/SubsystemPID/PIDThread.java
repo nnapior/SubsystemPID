@@ -58,7 +58,6 @@ public class PIDThread implements Runnable{
 				PIDOutput.setPIDOutput(0.0, marker);
 				integral = 0;
 			}
-			
 			try {
 				Thread.sleep(dt);
 			} catch (InterruptedException e) {

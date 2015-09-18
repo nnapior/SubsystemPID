@@ -29,6 +29,7 @@ public class  switchDriveMode extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.driveTrain.getDriveCommand().switchDriveMode();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,7 +38,7 @@ public class  switchDriveMode extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
