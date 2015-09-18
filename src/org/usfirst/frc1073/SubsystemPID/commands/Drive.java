@@ -47,6 +47,7 @@ public class  Drive extends Command implements PIDCommand{
     	double twist = Robot.oi.getdriver().getRawAxis(5);
 		double mag = Robot.oi.getdriver().getMagnitude();
 		double joyAngle = Robot.oi.getdriver().getDirectionDegrees();
+		double joyScale = Robot.oi.getdriver().getZ();
 		//deadzone adjust
 		if (Math.abs(mag) < deadZone) {
 			mag = 0;
@@ -55,6 +56,10 @@ public class  Drive extends Command implements PIDCommand{
 		if (Math.abs(twist) < deadZone) {
 			twist = 0;
 		}
+		if(Math.abs(joyScale) < .1){
+			joyScale = 0;
+		}
+		mag = mag * joyScale;
 		//TODO Needs Negative deflection!
 		//mecanum joystick deflection
 		joyAngle = ((joyAngle + 45) * 3.14159) / 180;
