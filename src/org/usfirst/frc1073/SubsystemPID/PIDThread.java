@@ -2,26 +2,45 @@ package org.usfirst.frc1073.SubsystemPID;
 
 import org.usfirst.frc1073.SubsystemPID.commands.PIDCommand;
 import org.usfirst.frc1073.SubsystemPID.subsystems.PIDSubsystem;
-	
+	/**
+	 * 
+	 * @author Derek Wider
+	 * FIRST Team 1073
+	 * 
+	 * A runnable, generic PID class. 
+	 *
+	 */
 public class PIDThread implements Runnable{
+	//PID constants
 	private double kP;
 	private double kI;
 	private double kD;
+	//thread refresh rate - recommended 5ms (200hz)
 	private long dt;
+	//tolerance specifies the "close enough factor" - when the error is within +- this tolerance, error is considered 0
 	private double tolerance;
-
+	//PID function variables
 	private double previousError;
 	private double integral;
 	private double output;
 	private double setpoint;
 	private double currentMeasurement;
-	
+	//PID interface objects - input (sensor), output (motor controller or other), and setpoint (joystick or raw data point)
 	private PIDSubsystem PIDinput;
 	private PIDSubsystem PIDOutput;
 	private PIDCommand PIDSetpoint;
-
+	
 	private boolean enabled;
 	private int marker; //<--- this is SUPER IMPORTANT. Each PID Thread needs its own unique marker, or it will NOT WORK
+	/**
+	 * Constructs a PID Thread
+	 * @param kP - the Proportional parameter
+	 * @param kI - the integral parameter
+	 * @param kD - the derivative parameter
+	 * @param dt - thread refresh rate (5ms recommended)
+	 * @param tolerance - error considered 0 if error within +- this value
+	 * @param marker - VERY IMPORTANT - each new PID thread must have its own PID marker (0 through 3 reserved for PID Drive)
+	 */
 	public PIDThread(double kP, double kI, double kD, long dt, double tolerance, int marker){
 		this.kP = kP;
 		this.kI = kI;
@@ -36,6 +55,9 @@ public class PIDThread implements Runnable{
 		this.marker = marker;
 		enabled = true;
 	}
+	/**
+	 * 
+	 */
 	public void run(){
 		
 		while (true) { 
