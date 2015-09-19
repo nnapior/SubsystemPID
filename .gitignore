@@ -20,11 +20,6 @@ dist/
 dist\
 \dist\
 
-*.class
-.classpath
-*.classpath
-classpath
-
 #OS related
 .DS_STORE
 .Thumbs.db
@@ -32,8 +27,5 @@ Desktop.ini
 $RECYCLE.BIN/
 .localized
 
-
-
-*.xml
 
 sysProps.xml
