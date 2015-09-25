@@ -125,6 +125,7 @@ public class PIDThread implements Runnable{
 	/**
 	* Enables PID calculations (thread is still running, data retrieval simply re-initiated)
 	* Also can be used to reset PID algorithm if integral has wound up
+	**/
 	public void enable(){
 		enabled = true;
 	}
