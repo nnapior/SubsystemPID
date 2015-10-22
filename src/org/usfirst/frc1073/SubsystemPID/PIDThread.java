@@ -2,6 +2,7 @@ package org.usfirst.frc1073.SubsystemPID;
 
 import org.usfirst.frc1073.SubsystemPID.commands.PIDCommand;
 import org.usfirst.frc1073.SubsystemPID.subsystems.PIDSubsystem;
+
 	/**
 	 * 
 	 * @author Derek Wider
@@ -10,21 +11,26 @@ import org.usfirst.frc1073.SubsystemPID.subsystems.PIDSubsystem;
 	 * A runnable, generic PID class. Runs on a separate thread and all system control can be re-routed around a PIDthread should something go wrong. 
 	 *
 	 */
-public class PIDThread implements Runnable{
+public class PIDThread implements Runnable {
+	
 	//PID constants
 	private double kP;
 	private double kI;
 	private double kD;
+	
 	//thread refresh rate - recommended 5ms (200hz)
 	private long dt;
+	
 	//tolerance specifies the "close enough factor" - when the error is within +- this tolerance, error is considered 0
 	private double tolerance;
+	
 	//PID function variables
 	private double previousError;
 	private double integral;
 	private double output;
 	private double setpoint;
 	private double currentMeasurement;
+	
 	//PID interface objects - input (sensor), output (motor controller or other), and setpoint (joystick or raw data point)
 	private PIDSubsystem PIDinput;
 	private PIDSubsystem PIDOutput;
@@ -32,6 +38,7 @@ public class PIDThread implements Runnable{
 	
 	private boolean enabled;
 	private int marker; //<--- this is SUPER IMPORTANT. Each PID Thread needs its own unique marker, or it will NOT WORK
+	
 	/**
 	 * Constructs a PID Thread. Each PID thread is an implementation of the Runnable interface. PID Threads can be created or stopped anytime, and can also be enabled/disabled ("Paused") when not in use. To use a PID Thread,
 	   you'll need 3 PID-specific objects - 2 PIDSubsystems and a PIDCommand. PIDSubsystem and PIDCommand are interfaces that your subsystems and commands should implement if they are to use PID. If you're looking for more information about how PID works, 
@@ -57,6 +64,7 @@ public class PIDThread implements Runnable{
 		this.marker = marker;
 		enabled = true;
 	}
+	
 	/**
 	 * Called when the thread the PIDThread is passed into is started (myThread.start())
 	 */
@@ -95,6 +103,7 @@ public class PIDThread implements Runnable{
 		}
 
 	}
+	
 	/**
 	* Adjusts the error for the specified tolerance
 	* @param currentError - the current PID error
@@ -105,6 +114,7 @@ public class PIDThread implements Runnable{
 		}
 		return 0.0;
 	}
+	
 	/**
 	* Establishes the three PID objects used in the core calculation (each object implements either PIDSubsystem or PIDCommand)
 	* @param PIDinput - the subsystem containing the sensor used in the PID calculation
@@ -116,12 +126,14 @@ public class PIDThread implements Runnable{
 		this.PIDOutput =  PIDOutput;
 		this.PIDSetpoint = PIDSetpoint;
 	}
+	
 	/**
 	* Disables PID calculations (does NOT stop thread execution)
 	*/
 	public void disable(){
 		enabled = false;
 	}
+	
 	/**
 	* Enables PID calculations (thread is still running, data retrieval simply re-initiated)
 	* Also can be used to reset PID algorithm if integral has wound up
@@ -134,9 +146,11 @@ public class PIDThread implements Runnable{
 	public void updateSetpoint(double newSetpoint){
 		this.setpoint = newSetpoint;
 	}
+	
 	public void updateCurrentMeasurement(double newMeasurement){
 		this.currentMeasurement = newMeasurement;
 	}
+	
 	public double getOutput(){
 		return output;
 	}

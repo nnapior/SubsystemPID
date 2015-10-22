@@ -45,24 +45,30 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
 	//Manual jaguar control 
     public void setFrontLeftSpeed(double speed){
     	frontLeftJag.set(speed);
     }
+    
     public void setFrontRightSpeed(double speed){
     	frontRightJag.set(speed);
     }
+    
     public void setBackLeftSpeed(double speed){
     	backLeftJag.set(speed);
     }
+    
     public void setBackRightSpeed(double speed){
     	backRightJag.set(speed);
     }
+    
 	//PIDSubsystem-specific methods
 	@Override
 	public double getPIDSource(int marker) {
 		return 0;
 	}
+	
 	@Override
 	public void setPIDOutput(double output, int marker) {
 		if (isPID) {
@@ -77,12 +83,15 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
 			}
 		}
 	}
+	
 	public Drive getDriveCommand(){
 		return drive;
 	}
+	
 	public void enablePIDDrivetrainParameter(){
 		isPID = true;
 	}
+	
 	public void disablePIDDrivetrainParameter(){
 		isPID = false;
 	}
