@@ -62,7 +62,7 @@ public class  Drive extends Command implements PIDCommand{
     protected void execute() {
     	
     	//get the joystick values for mecanum drive
-    	double twist = Robot.oi.getdriver().getRawAxis(5);
+    	double twist = Robot.oi.getdriver().getTwist();
 		double mag = Robot.oi.getdriver().getMagnitude();
 		double joyAngle = Robot.oi.getdriver().getDirectionDegrees();
 		double joyScale = Robot.oi.getdriver().getZ();
@@ -71,7 +71,6 @@ public class  Drive extends Command implements PIDCommand{
 		if (Math.abs(mag) < deadZone) {
 			mag = 0;
 		}
-		twist = twist / 2;
 		if (Math.abs(twist) < deadZone) {
 			twist = 0;
 		}

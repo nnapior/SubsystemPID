@@ -12,10 +12,7 @@
 package org.usfirst.frc1073.SubsystemPID.subsystems;
 
 import org.usfirst.frc1073.SubsystemPID.RobotMap;
-import org.usfirst.frc1073.SubsystemPID.commands.*;
-
-import edu.wpi.first.wpilibj.CounterBase.EncodingType; import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
