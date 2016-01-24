@@ -3,22 +3,22 @@
 #Team 1073
 ##################################
 
+
 #For Robot Builder Temporary Files
 *~
 ~*
 
-#Other Various Files & Operating System 
+#Other Various Files & Operating System
+*.xml
+sysProps.xml
+build/
+dist/
 bin/
 
-build/
-/build/
-\build\
-build\
-
-dist/
-/dist/
-dist\
-\dist\
+*.class
+.classpath
+*.classpath
+classpath
 
 #OS related
 .DS_STORE
@@ -26,6 +26,3 @@ dist\
 Desktop.ini
 $RECYCLE.BIN/
 .localized
-
-
-sysProps.xml
